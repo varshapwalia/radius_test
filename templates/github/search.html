@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+  <link href="/static/css/blog.css" rel="stylesheet" >
+  <style type="text/css">
+    .feedback-form-btn-container {
+      position: fixed;
+      top: 50vh;
+      right: 0%;
+      bottom: 0%;
+      text-align:right;
+      z-index:9999;
+    }
+
+    .feedback-btn {
+      width: 30px;
+      padding: 3px 8px;
+      font-size: 14px;
+      line-height: 18px;
+      display: inline-block;
+      border-radius: 4px;
+      border: none;
+      background: #fa781b;
+      color: #FFF;
+      text-align: center;
+      transition: all 0.5s;
+      cursor: pointer;
+      float: left;
+      font-weight: 500;
+    }
+
+    .feedback-btn:hover {
+      background-color: #FFF;
+      border: solid 1px #fa781b;
+      color: #fa781b
+    }
+
+    .feedback-btn:focus{
+      color: #FFF;
+    }
+
+    .feedback-btn:active{
+      background-color: #FFF;
+      border: solid 1px #fa781b;
+      color: #fa781b
+    }
+
+    .feedback-btn:visited{
+      background-color: #FFF;
+      border: solid 1px #fa781b;
+      color: #fa781b
+    }
+
+    @media (max-width:768px) {
+      .feedbackform {
+        display:none;
+      }
+    }
+  </style>
+{% endblock %}
+
+
+{% block content %}
+    <section class="blog-area">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-8 col-md-12">
+          <div class="blog-posts">
+            <br>
+
+            <div class="single-post">
+              <h3 class="title"><b class="light-color">Please Search the git public URL</b></h3>
+            </div>
+            <form action="/git_search" method="POST" class="form-inline my-2 my-lg-0">
+              <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <br>
+              <p>Please be Patient as it may take a while for big projects!</p><br>
+              {% if query %}
+              <p>Your <b>{{query}}</b> query's Result is given below</p>
+              {% endif %}
+          </div>
+        </div>
+        
+      </div>
+      <br>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Number of issues</th>
+              <th scope="col">Within 24 Hrs</th>
+              <th scope="col">24 Hrs-7 Days</th>
+              <th scope="col">Before & Days</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{result["total"]}}</td>
+              <td>{{result["within_24hrs"]}}</td>
+              <td>{{result["24hrs_to_7days"]}}</td>
+              <td>{{result["beyond_7days"]}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </section>
+{% endblock content %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock scripts %}  
